@@ -99,7 +99,7 @@ do
   vim.g.maplocalleader = ' '
 
   -- Set to true if you have a Nerd Font installed and selected in the terminal
-  vim.g.have_nerd_font = false
+  vim.g.have_nerd_font = true
 
   -- [[ Setting options ]]
   --  See `:help vim.o`
@@ -383,17 +383,17 @@ do
   --
   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
   vim.pack.add { gh 'folke/tokyonight.nvim' }
-  ---@diagnostic disable-next-line: missing-fields
-  require('tokyonight').setup {
-    styles = {
-      comments = { italic = false }, -- Disable italics in comments
-    },
+  vim.pack.add { gh 'loctvl842/monokai-pro.nvim' }
+
+  require('monokai-pro').setup {
+    transparent_background = true,
+    filter = "pro",
   }
 
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  vim.cmd.colorscheme 'tokyonight-night'
+  vim.cmd.colorscheme 'monokai-pro'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
@@ -704,6 +704,14 @@ do
     -- ts_ls = {},
 
     stylua = {}, -- Used to format Lua code
+
+    ruff = {
+      on_attach = function(client, bufnr)
+        client.server_capabilities.hoverProvider = false
+      end,
+    },
+
+    basedpyright = {},
 
     -- Special Lua Config, as recommended by neovim help docs
     lua_ls = {
